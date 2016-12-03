@@ -1,1 +1,2 @@
-Progenitor
+# Progenitor
+Simple world pre-generation.

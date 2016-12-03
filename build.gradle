@@ -1,0 +1,101 @@
+/*
+* Progenitor build file.
+*/
+
+//================================================
+// Pre-execute
+
+buildscript {
+  repositories {
+    jcenter()
+    maven {
+      name = "Forge"
+      url = "http://files.minecraftforge.net/maven"
+    }
+  }
+  dependencies {
+    classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VER"
+  }
+}
+
+repositories {
+  maven {
+    name 'Forge'
+    url 'http://files.minecraftforge.net/maven'
+  }
+  maven {
+    name 'Tethys (drakon.io)'
+    url 'https://tethys.drakon.io/maven'
+  }
+  mavenCentral()
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'kotlin'
+apply plugin: 'idea'
+
+configurations {
+  shade
+  compile.extendsFrom shade
+}
+
+dependencies {
+  shade "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VER"
+}
+
+minecraft {
+  version = "$MC_VER-$FORGE_VER"
+  mappings = MAPPINGS_VER
+  runDir = 'run'
+  replace '@VERSION@', MOD_VER
+  replace '@KOTLIN@', KOTLIN_VER
+}
+
+reobf {
+  jar {
+    // Repackage PK lines are in repack.srg
+    extraFiles file("repack.srg")
+  }
+}
+
+//================================================
+// Jar data
+
+// Grab system env
+def env = System.getenv()
+
+group = "io.drakon"
+archivesBaseName = "progenitor"
+version = "$MOD_VER+$MC_VER"
+
+// Version manifest
+def verManifest = manifest {
+  attributes("Forge-Version": MC_VER + "-" + FORGE_VER, "Kotlin-Version": KOTLIN_VER, "Mod-Version": MOD_VER)
+}
+
+//================================================
+// Jar tasks
+
+// Disable Javadoc doclint on JVM 1.8
+if (JavaVersion.current().isJava8Compatible()) {
+  allprojects {
+    tasks.withType(Javadoc) {
+      options.addStringOption('Xdoclint:none', '-quiet')
+    }
+  }
+}
+
+jar {
+  // Shading
+  configurations.shade.each { dep ->
+    from(project.zipTree(dep)) {
+      exclude 'META-INF', 'META-INF/**'
+    }
+  }
+
+  // Merge Jenkins and Git manifests to form final manifest in final release jar
+  manifest {
+    from verManifest
+  }
+}
