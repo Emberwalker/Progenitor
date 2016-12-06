@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "progenitor",
+    "name": "Progenitor",
+    "description": "Simple world pregeneration.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": ["Arkan"],
+    "credits": "ProfMobius' AdminCommandToolbox for inspiration.",
+    "logoFile": "progenitor.png",
+    "screenshots": [],
+    "dependencies": []
+  }
+]

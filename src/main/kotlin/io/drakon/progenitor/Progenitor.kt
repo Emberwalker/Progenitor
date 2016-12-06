@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger
  *
  * @author Arkan <arkan@drakon.io>
  */
-@Mod(modid = "progenitor", name = "Progenitor", version = "@VERSION@", modLanguage = "kotlin", modLanguageAdapter = "io.drakon.progenitor.lib.KotlinAdapter")
+@Mod(modid = "progenitor", name = "Progenitor", modLanguage = "kotlin", modLanguageAdapter = "io.drakon.progenitor.lib.KotlinAdapter", acceptableRemoteVersions = "*")
 object Progenitor {
 
     val log: Logger = LogManager.getLogger("Progenitor")
