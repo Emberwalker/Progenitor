@@ -8,7 +8,7 @@ object ChatUtils {
 
     fun sendToAll(server: MinecraftServer, msg: String) {
         Progenitor.log.info(msg)
-        server.playerList.sendChatMsg(TextComponentString("[Pregen] $msg"))
+        server.playerList.sendMessage(TextComponentString("[Pregen] $msg"))
     }
 
 }

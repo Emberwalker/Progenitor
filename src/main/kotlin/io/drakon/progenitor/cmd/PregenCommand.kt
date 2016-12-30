@@ -53,9 +53,9 @@ class PregenCommand : CommandBase() {
         ChatUtils.sendToAll(server, "Beginning pregen in dim $dim, radius $radius")
     }
 
-    override fun getCommandName(): String = "pregen"
+    override fun getName(): String = "pregen"
 
-    override fun getCommandUsage(sender: ICommandSender?): String = "/pregen RADIUS [DIM] (here/spawn)"
+    override fun getUsage(sender: ICommandSender?): String = "/pregen RADIUS [DIM] (here/spawn)"
 
     // Require Admin/Op
     override fun getRequiredPermissionLevel(): Int = 2
