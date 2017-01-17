@@ -16,10 +16,17 @@ class PregenCommand : CommandBase() {
             throw WrongUsageException("Command requires one to three parameters. See help.")
         }
 
+        if (args[0] == "stop" || args[0] == "purge") {
+            ChatUtils.sendToAll(server, "Purging all pregeneration queues...")
+            WorldTickHandler.purgePregenQueues()
+            ChatUtils.sendToAll(server, "Pregeneration queues purged.")
+            return
+        }
+
         val radius: Int
         val dim: Int
-        var x: Int
-        var z: Int
+        val x: Int
+        val z: Int
         try {
             radius = parseInt(args[0], 0, 5000)
             if (args.size == 2) {
