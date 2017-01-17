@@ -44,6 +44,10 @@ object WorldTickHandler {
         tasks[dim]?.add(Pair(chunkX, chunkZ))
     }
 
+    fun purgePregenQueues() {
+        tasks.clear()
+    }
+
     private fun generateChunk(world: World, coord: Pair<Int, Int>) {
         val dim = world.provider.dimension
         val provChunks = providedChunks[dim] ?: 0
